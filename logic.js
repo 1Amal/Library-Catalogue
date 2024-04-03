@@ -83,27 +83,6 @@ class addBookToLibrary
 }
 
 
-/*
-function addBookToLibrary() 
-    {
-//Following code will get the Form Data from HTML document as an object and store the value in four variables
-    var bookSubmitForm = new FormData(document.getElementById("bookSubmitForm"));
-    var authorValue = bookSubmitForm.getAll("author");
-    var titleValue=bookSubmitForm.getAll("title");
-    var numberOfPagesValue=bookSubmitForm.getAll("numberOfPages");
-    var readValue=bookSubmitForm.getAll("read");
-
-    //Following code will store the data captured from above code in the myLibrary array
-    var newBook=new bookData(authorValue[0],titleValue[0],numberOfPagesValue[0],readValue[0]);
-    myLibrary.push(newBook);
-
-    // LibraryStatusDiv.textContent="Current list of available books in the Library database";
-    bookInfoDisplay();
-        
-    }
-*/
-
-
 //Following function will update the Webpage dynamically with the data in the myLibrary array
 function bookInfoDisplay()
     {
