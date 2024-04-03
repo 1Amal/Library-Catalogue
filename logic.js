@@ -28,13 +28,18 @@ const bookInfoNumberOfPages=document.querySelector(".bookInfoNumberOfPages");
 const bookInfoRead=document.querySelector(".bookInfoRead");
 
 //Code for creating New Book Object
-function bookData(author, title, numberOfPages,read)
+
+class bookData // Refactored code into a Class
 {
-this.author=author;
-this.title=title;
-this.numberOfPages=numberOfPages;
-this.read=read;
+constructor (author, title, numberOfPages,read)
+    {
+    this.author=author;
+    this.title=title;
+    this.numberOfPages=numberOfPages;
+    this.read=read;
+    }
 }
+
 
 bookData.prototype.readStatusToggle=function(arrayNum,readStatus){
 
