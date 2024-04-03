@@ -59,6 +59,31 @@ bookData.prototype.readStatusToggle=function(arrayNum,readStatus){
 }
 
 //Code to add the new book details object into the myLibrary array
+
+class addBookToLibrary 
+{
+
+    constructor ()
+    {
+        let bookSubmitForm = new FormData(document.getElementById("bookSubmitForm"));
+        let authorValue = bookSubmitForm.getAll("author");
+        let titleValue=bookSubmitForm.getAll("title");
+        let numberOfPagesValue=bookSubmitForm.getAll("numberOfPages");
+        let readValue=bookSubmitForm.getAll("read");
+
+//Following code will store the data captured from above code in the myLibrary array
+        let newBook=new bookData(authorValue[0],titleValue[0],numberOfPagesValue[0],readValue[0]);
+        myLibrary.push(newBook);
+
+// LibraryStatusDiv.textContent="Current list of available books in the Library database";
+    bookInfoDisplay();
+    }
+
+
+}
+
+
+/*
 function addBookToLibrary() 
     {
 //Following code will get the Form Data from HTML document as an object and store the value in four variables
@@ -76,6 +101,8 @@ function addBookToLibrary()
     bookInfoDisplay();
         
     }
+*/
+
 
 //Following function will update the Webpage dynamically with the data in the myLibrary array
 function bookInfoDisplay()
@@ -169,7 +196,7 @@ bookInfoDisplay();
 
 //Following code will add an Event Listener to the Form Submit button
 submitButton.addEventListener('click',function(){
-    addBookToLibrary();
+    new addBookToLibrary;
 });
 
 
