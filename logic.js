@@ -38,24 +38,11 @@ constructor (author, title, numberOfPages,read)
     this.numberOfPages=numberOfPages;
     this.read=read;
     }
-}
 
-
-bookData.prototype.readStatusToggle=function(arrayNum,readStatus){
-
-    if (readStatus==="Yes") // If Yes
-    {
-        myLibrary[arrayNum]['read']="No";
-
+    readStatusToggle() {
+        this.read = !this.read; // Toggles the read status
+        new bookInfoDisplay(); 
     }
-
-    else if (readStatus==="No")
-    {
-        myLibrary[arrayNum]['read']="Yes";
-    }
-
-    bookInfoDisplay();
-
 }
 
 //Code to add the new book details object into the myLibrary array
@@ -76,13 +63,107 @@ class addBookToLibrary
         myLibrary.push(newBook);
 
 // LibraryStatusDiv.textContent="Current list of available books in the Library database";
-    bookInfoDisplay();
+    new bookInfoDisplay();
     }
-
 
 }
 
+//Following function will update the Webpage dynamically with the data in the myLibrary array
 
+class bookInfoDisplay
+{
+
+    constructor()
+    {
+        LibraryStatusDiv.textContent="Current list of available books in the Library database";
+
+        if (myLibrary.length==0){
+            console.log("Library is empty");
+            LibraryStatusDiv.textContent="I am sorry, Library does not have any books, Use the form below to add some books ";
+
+        }
+
+        else{
+
+                for (let i=0;i<myLibrary.length;i++)
+                {
+//Following code block will create a Book info card in the HTML Dom
+                    const newDiv=document.createElement('div');
+                    newDiv.textContent="Author Name: " + myLibrary[i]["author"] + " | " +
+                                        "Title Name: " + myLibrary[i]["title"] + " | "  +
+                                        "Number of Pages: " + myLibrary[i]["numberOfPages"] + " | " +
+                                        "Book Read: " + myLibrary[i]["read"];
+                    
+                    newDiv.classList.add("bookDetails",i);
+                    
+                    LibraryStatusDiv.appendChild(newDiv);
+//Following code block will create a Delete Button and attach an event listener 
+                    const deleteButton=document.createElement("button");
+                    deleteButton.innerHTML="Delete Book";
+                    deleteButton.classList.add(i);
+                    newDiv.appendChild(deleteButton);
+
+                    deleteButton.addEventListener('click',(a) =>             
+                    {
+                        // Get element class(es)
+                        let elementClass = a.target.className;
+                        // If element has class(es)
+                        if (elementClass !== '') {
+                        console.log(typeof(elementClass));
+                        myLibrary.splice(Number(elementClass),1);
+                        console.log(myLibrary);
+                        LibraryStatusDiv.textContent="Current list of available books in the Library database";
+                        new bookInfoDisplay();
+
+                        
+                        }
+                        // If element has no classes
+                        else {
+                        console.log('An element without a class was clicked');
+                        }
+                    }
+                                                );
+
+//Following code block will create a Read Button and attach an event listener 
+
+                    const readButton=document.createElement("button");
+                    readButton.innerHTML="Book read toggle";
+                    readButton.classList.add(i);
+                    newDiv.appendChild(readButton);
+
+                    readButton.addEventListener('click',(a) =>
+                    {
+                        // Get element class(es)
+                        let elementClass = a.target.className;
+                        // If element has class(es)
+                        if (elementClass !== '') {
+                        console.log(elementClass);
+                        console.log(myLibrary);
+                        LibraryStatusDiv.textContent="Current list of available books in the Library database";
+                        myLibrary[(Number(elementClass))].readStatusToggle(); // This will call up the function to toggle true or False
+
+                        
+                        }
+                        // If element has no classes
+                        else {
+                        console.log('An element without a class was clicked');
+                        }
+                    }
+                                            );
+                }
+            }
+
+
+    }
+}
+
+        
+
+
+
+
+
+/*
 //Following function will update the Webpage dynamically with the data in the myLibrary array
 function bookInfoDisplay()
     {
@@ -169,9 +250,9 @@ function bookInfoDisplay()
                 }
             }
     }
+*/
 
-
-bookInfoDisplay();
+new bookInfoDisplay();
 
 //Following code will add an Event Listener to the Form Submit button
 submitButton.addEventListener('click',function(){
