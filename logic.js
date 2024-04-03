@@ -43,6 +43,8 @@ constructor (author, title, numberOfPages,read)
         this.read = !this.read; // Toggles the read status
         new bookInfoDisplay(); 
     }
+
+  
 }
 
 //Code to add the new book details object into the myLibrary array
@@ -162,7 +164,7 @@ new bookInfoDisplay();
 
 //Following code will add an Event Listener to the Form Submit button
 submitButton.addEventListener('click',function(){
-    new addBookToLibrary;
+new addBookToLibrary;
 });
 
 
