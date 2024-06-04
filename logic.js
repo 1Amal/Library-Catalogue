@@ -152,9 +152,33 @@ class bookInfoDisplay {
   }
 }
 
-new bookInfoDisplay();
+class formValidation
+{
+    constructor()
+    {
+        this.authorName=document.querySelector("#author").value;
+
+    }
+    readValue()
+    {
+        
+    }
+
+    checkForValidity()
+    {
+        console.log(this.authorName);
+    }
+}
+
+const newInstanceBookInfoDisplay= new bookInfoDisplay();
+const newInstanceformValidation=new formValidation();
 
 //Following code will add an Event Listener to the Form Submit button
 submitButton.addEventListener("click", function () {
-  new addBookToLibrary();
+    newInstanceformValidation.checkForValidity();
+    new addBookToLibrary(); 
+    new formValidation();
+  
 });
+
+
