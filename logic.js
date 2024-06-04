@@ -152,33 +152,37 @@ class bookInfoDisplay {
   }
 }
 
-class formValidation
-{
-    constructor()
-    {
-        this.authorName=document.querySelector("#author").value;
+class formValidation {
+  constructor() {
+    this.authorName;
+    this.title;
+    this.numberOfPages;
 
-    }
-    readValue()
-    {
-        
-    }
+  }
+  readValue() {
+    this.authorName = document.querySelector("#author").value;
+    this.title = document.querySelector("#title").value;
+    this.numberOfPages = document.querySelector("#numberOfPages").value;
 
-    checkForValidity()
-    {
-        console.log(this.authorName);
-    }
+  }
+
+  checkForValidity() {
+    this.readValue();
+    
+    console.log(this.authorName);
+    console.log(this.title);
+    console.log(this.numberOfPages);
+
+    this.authorName.checkValidity();
+  }
 }
 
-const newInstanceBookInfoDisplay= new bookInfoDisplay();
-const newInstanceformValidation=new formValidation();
+const newInstanceBookInfoDisplay = new bookInfoDisplay();
+const newInstanceformValidation = new formValidation();
 
 //Following code will add an Event Listener to the Form Submit button
 submitButton.addEventListener("click", function () {
-    newInstanceformValidation.checkForValidity();
-    new addBookToLibrary(); 
-    new formValidation();
-  
+  newInstanceformValidation.checkForValidity();
+  new addBookToLibrary();
+  new formValidation();
 });
-
-
