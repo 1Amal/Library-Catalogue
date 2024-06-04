@@ -1,47 +1,36 @@
-h1
-{
-color: #13af23;
+h1 {
+  color: #13af23;
 }
 
 .fredericka-the great-regular {
-    font-family: "Fredericka the Great", serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  
-
-.LibraryStatusDiv
-{
-    font-family:'Fredericka the Great',serif;
-    background-color: #74bb7d;
-    font-weight: 600;
-    font-size: 1rem;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    
-    
+  font-family: "Fredericka the Great", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
-.addNewBookDiv
-{
-    background-color: #9770e5;
+.LibraryStatusDiv {
+  font-family: "Fredericka the Great", serif;
+  background-color: #74bb7d;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
-.bookDetails
-{
-
-    background-color: #aebbd2;
-    border: solid #fece0e 2px;
-    width: 300px;
-    height: 80px;
-    margin: 10px;
-    
+.addNewBookDiv {
+  background-color: #9770e5;
 }
 
-.inputForm
-{
-    display: flex;
-    padding: 10px;
+.bookDetails {
+  background-color: #aebbd2;
+  border: solid #fece0e 2px;
+  width: 300px;
+  height: 80px;
+  margin: 10px;
+}
+
+.inputForm {
+  display: flex;
+  padding: 10px;
 }
