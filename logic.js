@@ -154,26 +154,47 @@ class bookInfoDisplay {
 
 class formValidation {
   constructor() {
+    this.form;
     this.authorName;
     this.title;
     this.numberOfPages;
 
   }
   readValue() {
-    this.authorName = document.querySelector("#author").value;
-    this.title = document.querySelector("#title").value;
-    this.numberOfPages = document.querySelector("#numberOfPages").value;
+    this.form=document.querySelector("form");
+    this.authorName = document.querySelector("#author");
+    this.title = document.querySelector("#title");
+    this.numberOfPages = document.querySelector("#numberOfPages");
 
   }
 
   checkForValidity() {
     this.readValue();
     
-    console.log(this.authorName);
-    console.log(this.title);
-    console.log(this.numberOfPages);
+    // console.log(this.authorName);
+    // console.log(this.title);
+    // console.log(this.numberOfPages);
+    // console.log(this.form);
 
-    this.authorName.checkValidity();
+    this.numberOfPages.addEventListener("input",(event)=>{
+       
+        if(this.numberOfPages.validity.valid)
+            {
+                console.log("author Name fired");
+                this.showError();
+            }
+
+    });
+
+    // this.numberOfPages.checkValidity();
+  }
+
+  showError()
+  {
+    if(this.numberOfPages.validity.valueMissing)
+        {
+            console.log("Value missing");
+        }
   }
 }
 
