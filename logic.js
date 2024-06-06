@@ -158,43 +158,74 @@ class formValidation {
     this.authorName;
     this.title;
     this.numberOfPages;
-
+    this.errorNumberOfPages;
   }
   readValue() {
-    this.form=document.querySelector("form");
+    this.form = document.querySelector("form");
     this.authorName = document.querySelector("#author");
     this.title = document.querySelector("#title");
     this.numberOfPages = document.querySelector("#numberOfPages");
 
+    this.errorNumberOfPages = document.querySelector(
+      "#numberOfPages + span.error"
+    );
+
+    this.errorAuthorName = document.querySelector("#author + span.error");
+    this.errorTitle = document.querySelector("#title + span.error");
   }
 
   checkForValidity() {
     this.readValue();
-    
+
     // console.log(this.authorName);
     // console.log(this.title);
     // console.log(this.numberOfPages);
     // console.log(this.form);
 
-    this.numberOfPages.addEventListener("input",(event)=>{
-       
-        if(this.numberOfPages.validity.valid)
-            {
-                console.log("author Name fired");
-                this.showError();
-            }
-
+    this.numberOfPages.addEventListener("input", (event) => {
+      if (this.numberOfPages.validity.valid) {
+        console.log("Number of Pages are valid");
+        this.errorNumberOfPages.textContent = "No of pages within range";
+      } else {
+        this.showError();
+      }
     });
 
-    // this.numberOfPages.checkValidity();
+    this.authorName.addEventListener("input", (event) => {
+      if (this.authorName.validity.valid) {
+        this.errorAuthorName.textContent = "Author Name valid";
+      } else {
+        this.showError();
+      }
+
+      this.title.addEventListener("input", (event) => {
+        if (this.title.validity.valid) {
+          this.errorTitle.textContent = "Title Valid";
+        } else {
+          this.showError();
+        }
+      });
+    });
   }
 
-  showError()
-  {
-    if(this.numberOfPages.validity.valueMissing)
-        {
-            console.log("Value missing");
-        }
+  showError() {
+    if (this.numberOfPages.validity.valueMissing) {
+      console.log("Value missing");
+      this.errorNumberOfPages.textContent = "Please Enter Number of pages";
+      // this.errorNumberOfPages.validationMessage;
+    } else if (this.numberOfPages.validity.rangeUnderflow) {
+      console.log("Value Too Short");
+      this.errorNumberOfPages.textContent =
+        "Number of Pages should be above 10";
+      // this.errorNumberOfPages.validationMessage;
+    } else if (this.numberOfPages.validity.rangeOverflow) {
+      console.log("Value Too Long");
+      this.errorNumberOfPages.textContent =
+        "Number of Pages should be less than 1000";
+      // this.errorNumberOfPages.validationMessage;
+    } else if (this.errorAuthorName.validity.rangeUnderflow) {
+      this.errorAuthorName.textContent = "Please Enter a Longer Title";
+    }
   }
 }
 
@@ -203,7 +234,8 @@ const newInstanceformValidation = new formValidation();
 
 //Following code will add an Event Listener to the Form Submit button
 submitButton.addEventListener("click", function () {
-  newInstanceformValidation.checkForValidity();
   new addBookToLibrary();
-  new formValidation();
+  //   new formValidation();
 });
+
+newInstanceformValidation.checkForValidity();

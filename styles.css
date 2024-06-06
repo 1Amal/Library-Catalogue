@@ -28,9 +28,15 @@ h1 {
   width: 300px;
   height: 80px;
   margin: 10px;
+  overflow: auto;
 }
 
 .inputForm {
   display: flex;
   padding: 10px;
+}
+
+.error
+{
+    background-color:#e1b40f;
 }
