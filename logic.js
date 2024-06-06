@@ -159,6 +159,7 @@ class formValidation {
     this.title;
     this.numberOfPages;
     this.errorNumberOfPages;
+    this.formStatus = 0;
   }
   readValue() {
     this.form = document.querySelector("form");
@@ -169,7 +170,6 @@ class formValidation {
     this.errorNumberOfPages = document.querySelector(
       "#numberOfPages + span.error"
     );
-
     this.errorAuthorName = document.querySelector("#author + span.error");
     this.errorTitle = document.querySelector("#title + span.error");
   }
@@ -186,6 +186,8 @@ class formValidation {
       if (this.numberOfPages.validity.valid) {
         console.log("Number of Pages are valid");
         this.errorNumberOfPages.textContent = "No of pages within range";
+        this.formStatus += 1;
+        // this.addBookToLibrary();
       } else {
         this.showError();
       }
@@ -194,6 +196,7 @@ class formValidation {
     this.authorName.addEventListener("input", (event) => {
       if (this.authorName.validity.valid) {
         this.errorAuthorName.textContent = "Author Name valid";
+        this.formStatus += 1;
       } else {
         this.showError();
       }
@@ -201,11 +204,15 @@ class formValidation {
       this.title.addEventListener("input", (event) => {
         if (this.title.validity.valid) {
           this.errorTitle.textContent = "Title Valid";
+          this.formStatus += 1;
         } else {
           this.showError();
         }
       });
     });
+    const finalFormStatus = this.formStatus;
+    this.formStatus = 0;
+    return finalFormStatus;
   }
 
   showError() {
@@ -232,10 +239,39 @@ class formValidation {
 const newInstanceBookInfoDisplay = new bookInfoDisplay();
 const newInstanceformValidation = new formValidation();
 
-//Following code will add an Event Listener to the Form Submit button
+// const formSubmit=document.querySelector("form");
+
+// let authorName = document.querySelector("#author");
+// let title = document.querySelector("#title");
+// let numberOfPages = document.querySelector("#numberOfPages");
+
+// Following code will add an Event Listener to the Form Submit button
 submitButton.addEventListener("click", function () {
-  new addBookToLibrary();
+  console.log(newInstanceformValidation.checkForValidity());
+
+  // if (newInstanceformValidation.checkForValidity()===3) //
+  //     {
+  //         console.log("Form Ok for submission");
+  //         console.log(newInstanceformValidation.checkForValidity());
+
+  //     }
+
+  //     else
+  //     {
+  //         console.log("Form has errors");
+  //         console.log(newInstanceformValidation.checkForValidity());
+  //     }
+  //   new addBookToLibrary();
   //   new formValidation();
 });
 
+// formSubmit.addEventListener("submit",(event)=>{
+//     if (!authorName.validity.valid)
+//         {
+//             console.log("Author Name is not valid");
+//         }
+//     else{
+//         new addBookToLibrary();
+//     }
+// });
 newInstanceformValidation.checkForValidity();
