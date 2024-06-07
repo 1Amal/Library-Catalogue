@@ -26,13 +26,13 @@
         <form action="" method="get" id="bookSubmitForm">
           <div>
             <label for="author">Author Name:</label>
-            <input id="author" type="text" name="author" maxlength="500" required />
+            <input id="author" type="text" name="author" maxlength="100" required />
             <span class="error" aria-live="polite"></span>
           </div>
 
           <div>
             <label for="title">Book Title:</label>
-            <input id="title" type="text" name="title" maxlength="500" required />
+            <input id="title" type="text" name="title" maxlength="100" required />
             <span class="error" aria-live="polite"></span>
           </div>
 
@@ -54,7 +54,7 @@
           </div>
 
           <div>
-            <button id="submitButton" type="button">Submit Book info</button>
+            <button id="submitButton" type="button" disabled>Submit Book info</button>
           </div>
         </form>
       </div>

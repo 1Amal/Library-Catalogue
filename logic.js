@@ -1,3 +1,4 @@
+// 2024, Amal Kariyawasam
 /* Pseudo Code
 1)Form input fields: author, title, numberOfPages,read and button "New Book" button
 2) When "New Book" button is clicked form data will be captured using function "addBookToLibrary()"
@@ -5,15 +6,6 @@
 4) function "addBookToLibrary()" will call function "bookInfoDisplay" to loop through the Array "myLibrary" and display on the webpage as a "book info Card".
 5) Each book "book info Card" will have a button "Delete Book" which will delete the book from the Array "myLibrary", using the index number of the array. Then call up the function "bookInfoDisplay" to update the webpage. 
 6) Each book "book info Card" will have a button "Read" which will update the relevant object "book.read=yes". Then call up the function "bookInfoDisplay" to update the webpage. 
-*/
-
-/* Completed Tasks
-1) For "addBookToLibrary" enable code to receive four variables that will be converted to a object using "bookData" object constructor: Completed
-2) Add HTML input form with buttons : Completed
-3) Enable "addBookToLibrary" to received four variables from the HTML code : Completed
-4) Add a "Delete" button and "Read" button: Completed
-5) Write code so "Delete" button deletes book from the array: Completed
-6) Write code so "Read" button change the status i.e. if current read=yes then change to read=no, vice versa: Completed
 */
 
 const myLibrary = []; // Array where all the newly created book will be stored
@@ -156,7 +148,7 @@ class formValidation {
   constructor() {
     this.form;
     this.authorName;
-    this.title;
+    this.bookTitle;
     this.numberOfPages;
     this.errorNumberOfPages;
     this.formStatus = 0;
@@ -164,7 +156,7 @@ class formValidation {
   readValue() {
     this.form = document.querySelector("form");
     this.authorName = document.querySelector("#author");
-    this.title = document.querySelector("#title");
+    this.bookTitle = document.querySelector("#title");
     this.numberOfPages = document.querySelector("#numberOfPages");
 
     this.errorNumberOfPages = document.querySelector(
@@ -177,18 +169,20 @@ class formValidation {
   checkForValidity() {
     this.readValue();
 
-    // console.log(this.authorName);
-    // console.log(this.title);
-    // console.log(this.numberOfPages);
-    // console.log(this.form);
-
     this.numberOfPages.addEventListener("input", (event) => {
       if (this.numberOfPages.validity.valid) {
         console.log("Number of Pages are valid");
         this.errorNumberOfPages.textContent = "No of pages within range";
-        this.formStatus += 1;
-        // this.addBookToLibrary();
+
+        if (
+          this.authorName.validity.valid &&
+          this.bookTitle.validity.valid &&
+          this.numberOfPages.validity.valid
+        ) {
+          submitButton.disabled = false;
+        }
       } else {
+        submitButton.disabled = true;
         this.showError();
       }
     });
@@ -196,82 +190,57 @@ class formValidation {
     this.authorName.addEventListener("input", (event) => {
       if (this.authorName.validity.valid) {
         this.errorAuthorName.textContent = "Author Name valid";
-        this.formStatus += 1;
+
+        if (
+          this.authorName.validity.valid &&
+          this.bookTitle.validity.valid &&
+          this.numberOfPages.validity.valid
+        ) {
+          submitButton.disabled = false;
+        }
       } else {
-        this.showError();
+        submitButton.disabled = true;
+        this.errorAuthorName.textContent = "Please Enter Author Name";
       }
 
-      this.title.addEventListener("input", (event) => {
-        if (this.title.validity.valid) {
-          this.errorTitle.textContent = "Title Valid";
-          this.formStatus += 1;
+      this.bookTitle.addEventListener("input", (event) => {
+        if (this.bookTitle.validity.valid) {
+          this.errorTitle.textContent = "Book Title Valid";
+          if (
+            this.authorName.validity.valid &&
+            this.bookTitle.validity.valid &&
+            this.numberOfPages.validity.valid
+          ) {
+            submitButton.disabled = false;
+          }
         } else {
-          this.showError();
+          submitButton.disabled = true;
+          this.errorTitle.textContent = "Please Enter Book Title";
         }
       });
     });
-    const finalFormStatus = this.formStatus;
-    this.formStatus = 0;
-    return finalFormStatus;
   }
 
   showError() {
     if (this.numberOfPages.validity.valueMissing) {
       console.log("Value missing");
       this.errorNumberOfPages.textContent = "Please Enter Number of pages";
-      // this.errorNumberOfPages.validationMessage;
     } else if (this.numberOfPages.validity.rangeUnderflow) {
       console.log("Value Too Short");
       this.errorNumberOfPages.textContent =
         "Number of Pages should be above 10";
-      // this.errorNumberOfPages.validationMessage;
     } else if (this.numberOfPages.validity.rangeOverflow) {
       console.log("Value Too Long");
       this.errorNumberOfPages.textContent =
         "Number of Pages should be less than 1000";
-      // this.errorNumberOfPages.validationMessage;
-    } else if (this.errorAuthorName.validity.rangeUnderflow) {
-      this.errorAuthorName.textContent = "Please Enter a Longer Title";
     }
   }
 }
 
-const newInstanceBookInfoDisplay = new bookInfoDisplay();
 const newInstanceformValidation = new formValidation();
 
-// const formSubmit=document.querySelector("form");
-
-// let authorName = document.querySelector("#author");
-// let title = document.querySelector("#title");
-// let numberOfPages = document.querySelector("#numberOfPages");
-
-// Following code will add an Event Listener to the Form Submit button
 submitButton.addEventListener("click", function () {
-  console.log(newInstanceformValidation.checkForValidity());
-
-  // if (newInstanceformValidation.checkForValidity()===3) //
-  //     {
-  //         console.log("Form Ok for submission");
-  //         console.log(newInstanceformValidation.checkForValidity());
-
-  //     }
-
-  //     else
-  //     {
-  //         console.log("Form has errors");
-  //         console.log(newInstanceformValidation.checkForValidity());
-  //     }
-  //   new addBookToLibrary();
-  //   new formValidation();
+  new addBookToLibrary();
 });
 
-// formSubmit.addEventListener("submit",(event)=>{
-//     if (!authorName.validity.valid)
-//         {
-//             console.log("Author Name is not valid");
-//         }
-//     else{
-//         new addBookToLibrary();
-//     }
-// });
 newInstanceformValidation.checkForValidity();
